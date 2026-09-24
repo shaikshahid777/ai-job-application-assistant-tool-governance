@@ -1,167 +1,237 @@
-# AI Job Application Assistant — Tool Governance
+<div align="center">
 
-<p align="center">
-  <strong>Topic 6 Assessment · Tool Usage & Capabilities</strong><br/>
-  Governed Web Search with explicit trigger, non-trigger, and fallback behavior.
+# 🤖 AI Job Application Assistant
+### 🔐 Tool Governance · Web Search · Controlled AI Behavior
+
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=20&pause=900&color=7C3AED&center=true&vCenter=true&width=760&lines=Topic+6+Assessment;Web+Search+Tool+Governance;Trigger+%7C+Non-Trigger+%7C+Fallback;Validated+with+Real+Test+Scenarios" alt="Typing animation" />
+
+<p>
+  <img src="https://img.shields.io/badge/Assessment-Topic%206-7C3AED?style=for-the-badge" alt="Topic 6" />
+  <img src="https://img.shields.io/badge/Tool-Web%20Search-2563EB?style=for-the-badge" alt="Web Search" />
+  <img src="https://img.shields.io/badge/Tests-7%2F7%20PASS-16A34A?style=for-the-badge" alt="7 of 7 pass" />
+  <img src="https://img.shields.io/badge/Status-Completed-059669?style=for-the-badge" alt="Completed" />
 </p>
 
-<p align="center">
-  <a href="https://chatgpt.com/g/g-6ab32eeab8c88191915986ea8efad18d-ai-job-application-assistant">Custom GPT</a> ·
-  <a href="https://www.loom.com/share/cfd7f407d87b428d91c1bada246aa63b">Loom Demo</a> ·
-  <a href="./test_examples.md">Test Evidence</a> ·
-  <a href="https://github.com/shaikshahid777/ai-job-application-assistant-tool-governance">Repository</a>
+<p>
+  <a href="https://chatgpt.com/g/g-6ab32eeab8c88191915986ea8efad18d-ai-job-application-assistant"><img src="https://img.shields.io/badge/🚀%20Open%20Custom%20GPT-111827?style=for-the-badge" alt="Open Custom GPT" /></a>
+  <a href="https://www.loom.com/share/cfd7f407d87b428d91c1bada246aa63b"><img src="https://img.shields.io/badge/▶%20Watch%20Loom%20Demo-FF4F00?style=for-the-badge" alt="Watch Loom Demo" /></a>
 </p>
+
+<p>
+  <a href="./test_examples.md"><img src="https://img.shields.io/badge/🧪%20Test%20Evidence-0F766E?style=for-the-badge" alt="Test Evidence" /></a>
+  <a href="https://github.com/shaikshahid777/ai-job-application-assistant-tool-governance"><img src="https://img.shields.io/badge/⭐%20GitHub%20Repository-18181B?style=for-the-badge" alt="GitHub Repository" /></a>
+</p>
+
+</div>
 
 ---
 
-## Overview
+## ✨ What This Project Demonstrates
 
 This repository documents **Topic 6 — Tool Usage & Capabilities: Tool Governance** for the **AI Job Application Assistant** Custom GPT.
 
-The implementation enables **Web Search** and adds explicit governance controls so the GPT can distinguish between:
+The implementation enables **Web Search** while enforcing a controlled decision process:
 
-- requests that genuinely require current or external information,
-- requests that should be answered without a tool call, and
-- situations where the tool fails or returns no useful result.
+> **Use the tool when it is necessary. Skip it when it is unnecessary. Never hallucinate when it fails.**
 
-The goal is controlled, explainable tool usage rather than unnecessary web searches.
+The result is a more predictable and explainable tool-using GPT.
 
-## Solution Architecture
+---
 
-```text
-User Request
-    │
-    ▼
-Check Knowledge Guide / Conversation Context
-    │
-    ├── Covered / Directly Answerable ──► Answer without Web Search
-    │
-    └── Current or External Information Required
-                     │
-                     ▼
-                 Web Search
-                     │
-               ┌─────┴─────┐
-               ▼           ▼
-          Useful Result   Failure / No Useful Result
-               │           │
-               ▼           ▼
-        Cite Sources    Explain Limitation
-                           │
-                           ├── Use available context if sufficient
-                           └── Otherwise request a source/information
+## 🎯 Assessment Objectives
+
+| Capability | Implementation |
+|---|---|
+| 🔌 Tool enabled | **Web Search** |
+| 🟢 Trigger conditions | Current / live / external information |
+| 🔴 Non-trigger conditions | Knowledge Guide, conversation, resume, JD, simple writing |
+| 🛡️ Fallback behavior | Transparent failure handling + no guessing |
+| 🧪 Validation | 3 practical scenarios |
+| 📋 Evidence | `test_examples.md` |
+| 🎥 Demonstration | Loom video |
+
+---
+
+## 🧠 Governance Logic
+
+```mermaid
+flowchart TD
+    A[👤 User Request] --> B{📚 Check Knowledge Guide}
+    B -->|Answer available| C[✅ Answer directly]
+    B -->|Not enough| D{🌐 Current / External info required?}
+    D -->|No| E[💬 Answer from available context]
+    D -->|Yes| F[🔎 Web Search]
+    F --> G{📊 Useful result?}
+    G -->|Yes| H[✅ Answer + source references]
+    G -->|No / Failure| I[🛡️ Fallback]
+    I --> J[🚫 No guessing / hallucination]
+    J --> K{📚 Existing context sufficient?}
+    K -->|Yes| C
+    K -->|No| L[📥 Ask user for source / information]
 ```
 
-## Tool Governance
+---
 
-### Trigger Rules
+## 🔐 Tool Governance Rules
 
-Web Search is used only when the request requires **current, live, external, or online information**.
+### 🟢 1. Trigger — When Web Search SHOULD run
 
-Examples include:
+Web Search is used when the request requires **current, live, external, or online information**.
 
-- explicit web-search requests,
-- current company information,
-- current job opportunities,
-- current job-market information,
-- time-sensitive external information,
-- external job postings or webpages that require web access.
+Examples:
 
-### Non-Trigger Rules
+- User explicitly asks to search the web.
+- Current company information.
+- Current job opportunities.
+- Current job-market information.
+- Time-sensitive information.
+- External job postings or webpages requiring web access.
+- Current external research for an uncovered question.
 
-Web Search is not used when:
+### 🔴 2. Non-Trigger — When Web Search SHOULD NOT run
 
-- the answer is already in the Knowledge Guide,
-- the answer is already available in the conversation,
-- the user's resume or job description provides sufficient information,
-- the user asks about documented workflow or definitions,
-- the task is simple writing, rewriting, formatting, or explanation,
-- current or external information is not required.
+Web Search is skipped when:
 
-### Fallback Rules
+- The answer is already in the Knowledge Guide.
+- The answer is already available in the conversation.
+- The user's resume or job description is sufficient.
+- The user asks about documented workflow or definitions.
+- The task is simple writing, rewriting, formatting, or explanation.
+- Current or external information is not required.
 
-When Web Search fails, is unavailable, or returns no useful result, the GPT must:
+**Principle:** Web Search is not used simply because it is enabled.
 
-1. Clearly state the limitation.
-2. Avoid guessing or inventing information.
-3. Use available Knowledge Guide or conversation information when sufficient.
-4. Ask the user to provide the required source or information when necessary.
+### 🛡️ 3. Fallback — When the tool fails
+
+If Web Search fails, is unavailable, or returns no useful result:
+
+1. Explain the limitation clearly.
+2. Never guess or invent information.
+3. Use existing Knowledge Guide/conversation context when sufficient.
+4. Ask the user for the required source or information when necessary.
 5. Never claim that a search was completed when it was not.
 
-## Validation
+---
 
-Three scenarios were tested:
+## 🧪 Validation Results
 
-| Test | Scenario | Expected Behavior | Result |
-|---|---|---|---|
-| 1 | Current OpenAI careers information | Web Search triggers | ✅ PASS |
-| 2 | Knowledge Guide skill classifications | Web Search is skipped | ✅ PASS |
-| 3 | Web Search failure/unavailability | Safe fallback behavior | ✅ PASS |
+### Test 01 · Tool Required
 
-**Final test evidence: 7/7 PASS** as recorded in [test_examples.md](./test_examples.md).
+**Prompt:**  
+Search the web and find the current official careers page and latest publicly available information about OpenAI's current job opportunities.
 
-## Evidence
+**Expected:** Web Search triggers.
 
-### Test 1 — Tool Required
+**Observed:** Web Search triggered and returned current external information with sources.
 
-The GPT was asked to search for current OpenAI careers information. Because the request required current external information, Web Search was triggered and the response included external sources.
+**Result:** 🟢 **PASS**
 
-### Test 2 — Tool Not Required
+---
 
-The GPT was asked for the three skill-match classifications from the Knowledge Guide. The answer was provided directly from the uploaded Knowledge Guide without unnecessary external research:
+### Test 02 · Tool Not Required
 
-**Match · Partial Match · Missing**
+**Prompt:**  
+According to the Knowledge Guide, what are the three skill-match classifications?
 
-### Test 3 — Fallback
+**Expected:** Web Search is skipped.
 
-The GPT was asked what to do when Web Search fails or is unavailable. It correctly described transparent failure handling, prohibited guessing, and requested a source when the available information was insufficient.
+**Observed:** GPT answered from the Knowledge Guide:
 
-## Repository Contents
+> **Match · Partial Match · Missing**
+
+No external research was required.
+
+**Result:** 🟢 **PASS**
+
+---
+
+### Test 03 · Fallback
+
+**Prompt:**  
+If Web Search fails, returns no useful results, or is unavailable, what should you do?
+
+**Expected:** Transparent failure handling without hallucination.
+
+**Observed:** GPT correctly described the fallback behavior and prohibited guessing or falsely claiming that a search was completed.
+
+**Result:** 🟢 **PASS**
+
+---
+
+## 📊 Final Validation Matrix
+
+| Requirement | Status |
+|---|:---:|
+| Web Search enabled | 🟢 PASS |
+| Trigger rules defined | 🟢 PASS |
+| Non-trigger rules defined | 🟢 PASS |
+| Fallback behavior defined | 🟢 PASS |
+| Tool-required scenario | 🟢 PASS |
+| Non-tool-required scenario | 🟢 PASS |
+| Fallback scenario | 🟢 PASS |
+
+### 🏆 Final Evidence: **7/7 PASS**
+
+Full evidence is available in **[test_examples.md](./test_examples.md)**.
+
+---
+
+## 🗂️ Repository Structure
 
 ```text
-.
-├── README.md
-└── test_examples.md
+ai-job-application-assistant-tool-governance/
+│
+├── 📄 README.md
+├── 🧪 test_examples.md
+└── 📁 docs/
+    └── implementation.md
 ```
 
-## Related Resources
+---
 
-**Custom GPT**  
-https://chatgpt.com/g/g-6ab32eeab8c88191915986ea8efad18d-ai-job-application-assistant
+## 🔗 Project Links
 
-**Loom Demonstration**  
-https://www.loom.com/share/cfd7f407d87b428d91c1bada246aa63b
-
-**Test Evidence**  
-[test_examples.md](./test_examples.md)
-
-## Assessment Coverage
-
-| Assessment Requirement | Status |
+| Resource | Link |
 |---|---|
-| At least one tool enabled | ✅ Complete |
-| Trigger rules documented | ✅ Complete |
-| Non-trigger rules documented | ✅ Complete |
-| Fallback behavior documented | ✅ Complete |
-| Tool-required scenario tested | ✅ Complete |
-| Non-tool-required scenario tested | ✅ Complete |
-| Test examples saved | ✅ Complete |
+| 🤖 Custom GPT | [AI Job Application Assistant](https://chatgpt.com/g/g-6ab32eeab8c88191915986ea8efad18d-ai-job-application-assistant) |
+| 🎥 Loom Demo | [Watch Demonstration](https://www.loom.com/share/cfd7f407d87b428d91c1bada246aa63b) |
+| 🧪 Test Evidence | [Open test_examples.md](./test_examples.md) |
+| 📦 Repository | [GitHub Repository](https://github.com/shaikshahid777/ai-job-application-assistant-tool-governance) |
 
-## Key Design Principles
+---
 
-**Source priority:** The Knowledge Guide remains the primary source for documented processes and definitions.
+## 🧩 Design Principles
 
-**Truthfulness:** The GPT must not fabricate user information, job requirements, tool results, or web sources.
+### 📚 Source Priority
+The Knowledge Guide remains the primary source for the assistant's documented processes, rules, and definitions.
 
-**Least necessary tool use:** Web Search is used only when the request actually requires current or external information.
+### 🎯 Least-Necessary Tool Use
+The GPT does not call Web Search merely because the capability exists.
 
-**Transparent failure handling:** Tool failure never becomes a reason to guess.
+### 🛡️ Truthfulness
+The GPT must not fabricate user information, job requirements, tool results, metrics, or sources.
 
-## Scope & Assumptions
+### 🔎 Evidence-Based Search
+When Web Search is appropriate, current factual claims are based on retrieved external sources.
 
-This repository documents the Topic 6 assessment implementation for the AI Job Application Assistant. The Knowledge Guide is authoritative for the assistant's documented workflows and definitions. User-provided resumes and job descriptions remain authoritative for application-specific information. Web Search is treated as an external-information capability, not as a replacement for the Knowledge Guide.
+### 🚨 Graceful Failure
+Tool failure is handled transparently rather than converted into a guessed answer.
 
-## Author
+---
+
+## 📌 Scope & Assumptions
+
+This repository documents the Topic 6 assessment implementation.
+
+- The **Knowledge Guide** is authoritative for documented assistant workflows and definitions.
+- The **user's resume** is authoritative for personal/application background.
+- The **user-provided job description** is authoritative for job-specific requirements.
+- **Web Search** is an external-information capability and does not replace the Knowledge Guide.
+- Tool availability or web results may vary over time.
+
+---
+
+## 👨‍💻 Author
 
 **Shaik Mohammad Shaheed**
 
@@ -169,4 +239,12 @@ AI & Automation · Generative AI · Prompt Engineering · n8n · AI Agents
 
 ---
 
-> **Topic 6 completed:** Web Search is enabled and governed through explicit trigger, non-trigger, and fallback rules, with documented validation evidence.
+<div align="center">
+
+### 🚀 Topic 6 · Tool Governance
+
+**Trigger when necessary · Skip when unnecessary · Fail safely**
+
+<img src="https://img.shields.io/badge/Built%20for-Custom%20GPT%20Tool%20Governance-7C3AED?style=flat-square" alt="Built for Custom GPT Tool Governance" />
+
+</div>
