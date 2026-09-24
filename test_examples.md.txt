@@ -1,0 +1,76 @@
+# Topic 6 — Tool Governance Test Examples
+
+## GPT
+AI Job Application Assistant
+
+## Tool Enabled
+Web Search
+
+---
+
+## Test 1 — Tool Required
+
+### Prompt
+Search the web and find the current official careers page and latest publicly available information about OpenAI's current job opportunities. Summarize the relevant information and provide the sources.
+
+### Expected Behavior
+Web Search should be triggered because the request requires current external information.
+
+### Observed Result
+The GPT used Web Search and provided current OpenAI careers information and sources.
+
+### Result
+PASS
+
+---
+
+## Test 2 — Tool Not Required
+
+### Prompt
+According to the Knowledge Guide, what are the three skill-match classifications?
+
+### Expected Behavior
+Web Search should NOT be triggered because the answer is already covered by the uploaded Knowledge Guide.
+
+### Observed Result
+The GPT answered directly using the Knowledge Guide and identified:
+1. Match
+2. Partial Match
+3. Missing
+
+No external web research was required.
+
+### Result
+PASS
+
+---
+
+## Test 3 — Fallback Behavior
+
+### Prompt
+If Web Search fails, returns no useful results, or is unavailable, what should you do?
+
+### Expected Behavior
+The GPT should clearly explain the limitation, avoid guessing or inventing information, use available Knowledge Guide or conversation information when sufficient, and otherwise ask the user to provide the required source or information.
+
+### Observed Result
+The GPT correctly described the fallback behavior and explicitly stated that it should not invent information or falsely claim that a search was completed.
+
+### Result
+PASS
+
+---
+
+## Final Assessment Result
+
+| Requirement | Result |
+|---|---|
+| Web Search enabled | PASS |
+| Trigger rule defined | PASS |
+| Non-trigger rule defined | PASS |
+| Fallback rule defined | PASS |
+| Tool-required scenario tested | PASS |
+| Non-tool-required scenario tested | PASS |
+| Fallback scenario tested | PASS |
+
+**Final Result: 7/7 PASS**
