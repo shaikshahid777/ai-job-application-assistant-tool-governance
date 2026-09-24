@@ -12,10 +12,14 @@
   <img src="https://img.shields.io/badge/Status-Completed-059669?style=for-the-badge" alt="Completed" />
 </p>
 
-<p>
-  <a href="https://chatgpt.com/g/g-6ab32eeab8c88191915986ea8efad18d-ai-job-application-assistant"><img src="https://img.shields.io/badge/🚀%20Open%20Custom%20GPT-111827?style=for-the-badge" alt="Open Custom GPT" /></a>
-  <a href="https://www.loom.com/share/cfd7f407d87b428d91c1bada246aa63b"><img src="https://img.shields.io/badge/▶%20Watch%20Loom%20Demo-FF4F00?style=for-the-badge" alt="Watch Loom Demo" /></a>
-</p>
+### 🔗 Quick Access
+
+[![Open Custom GPT](https://img.shields.io/badge/🚀%20Open%20Custom%20GPT-111827?style=for-the-badge)](https://chatgpt.com/g/g-6ab32eeab8c88191915986ea8efad18d-ai-job-application-assistant)
+[![Watch Loom Demo](https://img.shields.io/badge/▶%20Watch%20Loom%20Demo-FF4F00?style=for-the-badge)](https://www.loom.com/share/cfd7f407d87b428d91c1bada246aa63b)
+
+[![Test Evidence](https://img.shields.io/badge/🧪%20Test%20Evidence-0F766E?style=for-the-badge)](./test_examples.md)
+[![Implementation](https://img.shields.io/badge/📘%20Implementation-2563EB?style=for-the-badge)](./docs/implementation.md)
+[![GitHub Repository](https://img.shields.io/badge/⭐%20GitHub%20Repository-18181B?style=for-the-badge)](https://github.com/shaikshahid777/ai-job-application-assistant-tool-governance)
 
 <p>
   <a href="./test_examples.md"><img src="https://img.shields.io/badge/🧪%20Test%20Evidence-0F766E?style=for-the-badge" alt="Test Evidence" /></a>
